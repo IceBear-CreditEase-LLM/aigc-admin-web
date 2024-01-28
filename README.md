@@ -2,8 +2,8 @@
 
 ### 📖 介绍
 
-    aigc-admin-web 是一款基于 Vue3、TypeScript、Vite、Pinia、Element-Plus、Vuetify 开源的 AI模型管理后台，项目支持国际化。项目框架原型参照[Flexy Vue 3 vuetify](https://preview.themeforest.net/item/flexy-vuetify-vue3-dashboard/full_screen_preview/42100104?clickid=VfFzUd3jpxyPTtd2du3D4ULrUkFWAjUB4w3rWY0&iradid=289206&iradtype=BANNER&irgwc=1&irmptype=mediapartner&irpid=1386563&mp_value1=&utm_campaign=af_impact_radius_1386563&utm_medium=affiliate&utm_source=impact_radius)。
-    aigc-admin-web AI模型管理后台分为前、后端两个项目。本项目为前端项目，依赖的接口服务的后端项目为 [aigc-admin](https://github.com/IceBear-CreditEase-LLM/aigc-admin)。
+- aigc-admin-web 是一款基于 Vue3、TypeScript、Vite、Pinia、Element-Plus、Vuetify 开源的 AI模型管理后台，项目支持国际化。项目框架原型参照[Flexy Vue 3 vuetify](https://preview.themeforest.net/item/flexy-vuetify-vue3-dashboard/full_screen_preview/42100104?clickid=VfFzUd3jpxyPTtd2du3D4ULrUkFWAjUB4w3rWY0&iradid=289206&iradtype=BANNER&irgwc=1&irmptype=mediapartner&irpid=1386563&mp_value1=&utm_campaign=af_impact_radius_1386563&utm_medium=affiliate&utm_source=impact_radius)。
+- aigc-admin-web AI模型管理后台分为前、后端两个项目。本项目为前端项目，依赖的接口服务的后端项目为 [aigc-admin](https://github.com/IceBear-CreditEase-LLM/aigc-admin)。
 
 ### 🚀 开发
 
