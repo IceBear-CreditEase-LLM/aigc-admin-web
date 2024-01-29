@@ -8,7 +8,11 @@
     :item-value="MODEL_KEY"
     variant="outlined"
     :return-object="props.returnObject"
-  ></v-select>
+  >
+    <template #prepend v-if="$slots.prepend">
+      <slot name="prepend"></slot>
+    </template>
+  </v-select>
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from "vue";

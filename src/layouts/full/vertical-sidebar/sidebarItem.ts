@@ -15,7 +15,8 @@ import {
   IconDeviceAirtag,
   IconSettings,
   IconColorPicker,
-  IconTextSpellcheck
+  IconTextSpellcheck,
+  IconTools
 } from "@tabler/icons-vue";
 
 export interface menu {
@@ -41,6 +42,27 @@ let sidebarItem: menu[] = [
     icon: IconHome,
     to: "/dashboards/index"
   },
+  { header: "aiAssistant" },
+  {
+    title: "aiAssistant",
+    icon: IconTools,
+    to: "/",
+    children: [
+      {
+        title: "assistantList",
+        icon: IconCircleDot,
+        iconSize: "small",
+        to: "/ai-assistant/assistants/list"
+      },
+      {
+        title: "toolsList",
+        icon: IconCircleDot,
+        iconSize: "small",
+        to: "/ai-assistant/tools-list"
+      }
+    ]
+  },
+
   { header: "sampleLibrary" },
   // {  delete
   //   title: "soundSample",

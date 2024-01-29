@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@codemirror/lang-json": "^6.0.1",
+    "@codemirror/lang-python": "6.1.2",
     "@codemirror/language": "^6.9.3",
     "@codemirror/legacy-modes": "^6.3.3",
+    "@codemirror/lint": "^6.4.2",
     "@codemirror/theme-one-dark": "^6.1.2",
     "@pureadmin/table": "^2.3.4",
     "@steelydylan/markdown-it-imsize": "^1.0.2",

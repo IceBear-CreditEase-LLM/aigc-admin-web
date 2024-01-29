@@ -151,6 +151,32 @@ const MainRoutes: RouteRecordRaw = {
       ]
     },
     {
+      path: "/ai-assistant/tools-list",
+      component: () => import("@/views/ai-assistant/tools-list/toolsList.vue")
+    },
+    {
+      path: "/ai-assistant/assistants",
+      component: () => import("@/components/business/AspectPage.vue"),
+      meta: {
+        aspectPageInclude: ["assistantsList"]
+      },
+      redirect: "/ai-assistant/assistants/list",
+      children: [
+        {
+          path: "list",
+          component: () => import("@/views/ai-assistant/assistants-list/assistantsList.vue")
+        },
+        {
+          path: "detail",
+          component: () => import("@/views/ai-assistant/assistants-list/detail/assistantsDetail.vue")
+        },
+        {
+          path: "playground",
+          component: () => import("@/views/ai-assistant/assistants-list/playground/playground.vue")
+        }
+      ]
+    },
+    {
       path: "/audio-manage/audio-mark",
       component: () => import("@/views/audio-manage/audio-mark/audioMark.vue")
     },

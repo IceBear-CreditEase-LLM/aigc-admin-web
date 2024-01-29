@@ -9,7 +9,8 @@ import { computed } from "vue";
 import { Codemirror } from "vue-codemirror";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { useVModel } from "@vueuse/core";
-import languages from "./codeMirrorLanguage";
+import { languages, languagesLint } from "./codeMirrorLanguage";
+import { linter } from "@codemirror/lint";
 
 interface Props {
   modelValue?: string;
@@ -39,7 +40,12 @@ const extensions = computed(() => {
   if (props.dark) {
     result.push(oneDark);
   }
-  result.push(languages[props.language]());
+  if (languagesLint[props.language]) {
+    result.push(linter(languagesLint[props.language]));
+  }
+  if (languages[props.language]) {
+    result.push(languages[props.language]());
+  }
   return result;
 });
 </script>

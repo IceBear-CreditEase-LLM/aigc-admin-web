@@ -2,8 +2,8 @@
 
 ### 📖 介绍
 
-- aigc-admin-web 是一款基于 Vue3、TypeScript、Vite、Pinia、Element-Plus、Vuetify 开源的 AI模型管理后台，项目支持国际化。项目框架原型参照[Flexy Vue 3 vuetify](https://preview.themeforest.net/item/flexy-vuetify-vue3-dashboard/full_screen_preview/42100104?clickid=VfFzUd3jpxyPTtd2du3D4ULrUkFWAjUB4w3rWY0&iradid=289206&iradtype=BANNER&irgwc=1&irmptype=mediapartner&irpid=1386563&mp_value1=&utm_campaign=af_impact_radius_1386563&utm_medium=affiliate&utm_source=impact_radius)。
-- aigc-admin-web AI模型管理后台分为前、后端两个项目。本项目为前端项目，依赖的接口服务的后端项目为 [aigc-admin](https://github.com/IceBear-CreditEase-LLM/aigc-admin)。
+- aigc-admin-web 是一款基于 Vue3、TypeScript、Vite、Pinia、Element-Plus、Vuetify 开源的 AI 模型管理后台，项目支持国际化。项目框架原型参照[Flexy Vue 3 vuetify](https://preview.themeforest.net/item/flexy-vuetify-vue3-dashboard/full_screen_preview/42100104?clickid=VfFzUd3jpxyPTtd2du3D4ULrUkFWAjUB4w3rWY0&iradid=289206&iradtype=BANNER&irgwc=1&irmptype=mediapartner&irpid=1386563&mp_value1=&utm_campaign=af_impact_radius_1386563&utm_medium=affiliate&utm_source=impact_radius)。
+- aigc-admin-web AI 模型管理后台分为前、后端两个项目。本项目为前端项目，依赖的接口服务的后端项目为 [aigc-admin](https://github.com/IceBear-CreditEase-LLM/aigc-admin)。
 
 ### 🚀 开发
 
@@ -68,39 +68,47 @@ pnpm build
 
 - 国际化中文：
 
-  ![](src/assets/images/README/screens/i18n-cn.jpg)
+  ![](src/assets/images/README/screens/i18n-cn.png)
 
 - 国际化英文：
 
-  ![](src/assets/images/README/screens/i18n-en.jpg)
+  ![](src/assets/images/README/screens/i18n-en.png)
+
+- 助手列表：
+
+  ![](src/assets/images/README/screens/help-list.png)
+
+- 工具列表：
+
+  ![](src/assets/images/README/screens/help-tools.png)
 
 - 微调样本：
 
-  ![](src/assets/images/README/screens/sample.jpg)
+  ![](src/assets/images/README/screens/sample.png)
 
 - 模型设置：
 
-  ![](src/assets/images/README/screens/model.jpg)
+  ![](src/assets/images/README/screens/model.png)
 
 - 模型聊天操场：
 
-  ![](src/assets/images/README/screens/chat.jpg)
+  ![](src/assets/images/README/screens/chat.png)
 
 - 微任务列表：
 
-  ![](src/assets/images/README/screens/fineList.jpg)
+  ![](src/assets/images/README/screens/fineList.png)
 
 - 场景设置：
 
-  ![](src/assets/images/README/screens/scene.jpg)
+  ![](src/assets/images/README/screens/scene.png)
 
 - 数据字典设置：
 
-  ![](src/assets/images/README/screens/dataDictionary.jpg)
+  ![](src/assets/images/README/screens/dataDictionary.png)
 
 - 模版设置：
 
-  ![](src/assets/images/README/screens/template.jpg)
+  ![](src/assets/images/README/screens/template.png)
 
 ### 🌎 浏览器支持
 
