@@ -43,6 +43,18 @@ export default defineConfig(({ mode }) => {
     optimizeDeps: {
       exclude: ["vuetify"],
       entries: ["./src/**/*.vue"]
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes("/src/utils/http.ts") || id.includes("/src/utils/index.ts")) {
+              // 将 'http.ts' 和 'index.ts' 强制打包到同一个 chunk 中
+              return "utils";
+            }
+          }
+        }
+      }
     }
   };
 });

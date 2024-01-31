@@ -78,7 +78,7 @@ const rules = reactive({
 });
 
 const showAvatar = computed(() => {
-  return formData.value.avatar || "https://pan.yixin.com/s/9_4k8.HOIRxzW/origin";
+  return formData.value.avatar || new URL("../images/defaultAvatar.png", import.meta.url).href;
 });
 
 const handleAfterUpload = ({ res }) => {

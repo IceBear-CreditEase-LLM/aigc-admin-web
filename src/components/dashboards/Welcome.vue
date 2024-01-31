@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import { useAppStore } from "@/stores";
 const appStore = useAppStore();
-import { useI18n } from "vue-i18n";
 const { t } = useI18n(); // 解构出t方法
 </script>
 <template>

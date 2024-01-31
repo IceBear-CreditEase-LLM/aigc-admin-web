@@ -32,7 +32,7 @@ function validate(values: any, { setErrors }: any) {
       class="mb-8"
       required
       hide-details="auto"
-      placeholder="请输入账号"
+      placeholder="账号:admin"
     ></VTextField>
     <v-label class="text-subtitle-1 font-weight-medium pb-2 text-lightText">密码</v-label>
     <VTextField
@@ -43,7 +43,7 @@ function validate(values: any, { setErrors }: any) {
       hide-details="auto"
       :type="showPwd ? 'text' : 'password'"
       class="pwdInput"
-      :placeholder="请输入密码"
+      placeholder="密码:admin"
       :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'"
       @click:append="showPwd = !showPwd"
     ></VTextField>

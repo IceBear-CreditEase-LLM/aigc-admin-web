@@ -4,7 +4,7 @@ import { useAppStore } from "@/stores";
 import { EnumLanguage } from "@/types/apps/System.ts";
 
 export const format = {
-  // 手机号脱敏
+  // 手机号脱敏，星号替换
   blurMobile(inValue) {
     return ("" + inValue).replace(/^(\d{3}).+(\d{4})$/, "$1****$2");
   },
