@@ -38,7 +38,7 @@ export const useMapRemoteStore = defineStore({
     /**
      * 合成本地数据字典数据
      */
-    _mergeLocalData() {
+    mergeLocalData() {
       let { mappings, options } = this;
       let { localData } = dataDictionary;
 
@@ -65,15 +65,22 @@ export const useMapRemoteStore = defineStore({
      * 获取多个字段的label
      * @param {*} inValue
      * @returns Array
-     * 比如 getFieldLabel([ ['gender','1'] ] ) =>  ['男']
-     *     getFieldLabel([ ['gender','1'],['gender','2'] ] ) =>  ['男','女']
+     * 比如 getLabels([ ['gender','1'] ] ) =>  ['男']
+     *     getLabels([ ['gender','1'],['gender','2'] ] ) =>  ['男','女']
      */
-    getLabels(inValue: Array<TypeGetLabels>) {
+    async getLabels(inValue: Array<TypeGetLabels>) {
       let { mappings } = this;
       let ret = [];
-      inValue.forEach(item => {
+      inValue.forEach(async item => {
         let fieldName = item[0];
         let fieldValue = item[1];
+        if (!fieldValue) {
+          return;
+        }
+        if (!mappings[fieldName]) {
+          //数据不存在
+          await this.getOptionsByCode(fieldName);
+        }
         let cn = mappings[fieldName]?.[fieldValue];
         if (cn) {
           ret.push(cn);
@@ -91,37 +98,57 @@ export const useMapRemoteStore = defineStore({
         return ret;
       }
     },
-    async getAllRemoteMapping(): Promise<boolean> {
-      this._mergeLocalData();
+    /**
+     * 查询数据字典
+     *   页面使用 mappings 转义code，但页面里没用到对应code 的<Select  控件时，需要调用此方法
+     */
+    async loadDictTree(code: string | string[]) {
+      let { options, mappings } = this;
+      let arrCode = [];
+      if (typeof code == "string") {
+        arrCode.push(code);
+      } else {
+        arrCode = code;
+      }
+      let queryCode = arrCode.filter(item => {
+        //过滤出没有缓存的code
+        return !options[item];
+      });
+      if (queryCode.length == 0) {
+        //没有要查询的code
+        return;
+      }
       const [err, res] = await http.get({
-        url: `/api/sys/dict/tree`
+        url: `/api/sys/dict/tree`,
+        data: {
+          code: queryCode
+        }
       });
       if (res) {
-        let { mappings, options } = this;
         res.forEach(itemType => {
-          let fieldName = itemType.code; //如 gender
-          if (!mappings[fieldName]) {
-            mappings[fieldName] = {};
+          let code = itemType.code; //如 gender
+          if (!mappings[code]) {
+            mappings[code] = {};
           }
-          if (!options[fieldName]) {
-            options[fieldName] = [];
+          if (!options[code]) {
+            options[code] = [];
           }
-          (itemType.children || []).forEach((item, index) => {
+          (itemType.children || []).forEach(item => {
             let { dictLabel: label, dictValue: value } = item;
-            mappings[fieldName][value] = label;
-            options[fieldName].push({
+            mappings[code][value] = label;
+            options[code].push({
               label,
               value
             });
           });
         });
-
-        this.isInit = true;
-        return true;
       } else {
-        console.error(" getAllRemoteMapping", err);
-        return false;
+        console.error(" getOptionsByCode", code, err);
       }
+    },
+    async getOptionsByCode(code: string): Promise<TypeOption[]> {
+      await this.loadDictTree(code);
+      return this.options[code];
     }
   }
 });

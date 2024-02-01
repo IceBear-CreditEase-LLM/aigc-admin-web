@@ -40,8 +40,8 @@
                 </v-img>
                 <v-card-item class="pa-5">
                   <h5 class="text-h5 text-truncate" @click="openDetail(item)">
-                    {{ item.cname }} （{{ mappings["speak_gender"][item.gender] }}-{{
-                      mappings["digitalhuman_posture"][item.posture]
+                    {{ item.cname }} （{{ mappings["speak_gender"]?.[item.gender] }}-{{
+                      mappings["digitalhuman_posture"]?.[item.posture]
                     }}）
                   </h5>
                   <p class="text-subtitle-1 mt-1 text-medium-emphasis text-truncate" style="height: 15px">{{ item.remark }}</p>

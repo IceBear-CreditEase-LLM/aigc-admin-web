@@ -65,7 +65,7 @@
                     <div class="flex-1-1 d-flex justify-space-between text-medium-emphasis">
                       <span>{{ format.dateFromNow(item.createdAt) }}</span>
                       <span>{{
-                        `${item.digitalHumanPerson.cname}(${mappings["speak_gender"][item.digitalHumanPerson.gender]})`
+                        `${item.digitalHumanPerson.cname}(${mappings["speak_gender"]?.[item.digitalHumanPerson.gender]})`
                       }}</span>
                     </div>
                     <v-btn class="ml-6" size="x-small" color="inherit" icon variant="text">

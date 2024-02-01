@@ -168,9 +168,9 @@ const state = reactive<{
   style: {},
   formData: {
     modelName: "",
-    isPrivate: "",
-    enabled: "",
-    providerName: ""
+    isPrivate: null,
+    enabled: null,
+    providerName: null
   },
   selectedInfo: {
     id: "",

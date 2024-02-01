@@ -15,6 +15,7 @@ declare interface Window {
 }
 
 declare const appVersion: string;
+declare const apiOrigin: string;
 
 declare module "*.vue" {
   import { defineComponent } from "vue";

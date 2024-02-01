@@ -24,7 +24,7 @@
               <v-avatar size="40" class="mr-2">
                 <img :src="showData.digitalHumanPerson.cover" class="w-100" />
               </v-avatar>
-              {{ `${showData.digitalHumanPerson.cname}(${mappings["speak_gender"][showData.digitalHumanPerson.gender]})` }}
+              {{ `${showData.digitalHumanPerson.cname}(${mappings["speak_gender"]?.[showData.digitalHumanPerson.gender]})` }}
             </div>
           </v-input>
           <v-input hide-details>
@@ -34,8 +34,8 @@
                 <img :src="showData.voiceSpeak.headImg" class="w-100" />
               </v-avatar>
               {{
-                `${showData.voiceSpeak.speakCname}(${mappings["speak_age_group"][showData.voiceSpeak.ageGroup]}${
-                  mappings["speak_gender"][showData.voiceSpeak.gender]
+                `${showData.voiceSpeak.speakCname}(${mappings["speak_age_group"]?.[showData.voiceSpeak.ageGroup]}${
+                  mappings["speak_gender"]?.[showData.voiceSpeak.gender]
                 }声)`
               }}
             </div>

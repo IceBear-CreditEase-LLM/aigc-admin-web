@@ -118,7 +118,7 @@ function createService() {
   // 请求拦截
   service.interceptors.request.use(
     config => {
-      config.url = (import.meta.env.VITE_APP_BASE_API + config.url).replace("/api/api", "/api");
+      config.url = ((apiOrigin || "") + import.meta.env.VITE_APP_BASE_API + config.url).replace("/api/api", "/api");
       return config;
     },
     // 发送失败
@@ -292,14 +292,35 @@ const instance = createRequest(service);
 
 export const http = {
   get<T = any>(options: MyAxiosRequestConfig) {
-    let { data } = options;
+    let { data = {}, url } = options;
+    const arr = [];
+    Object.keys(data).forEach(item => {
+      if (Array.isArray(data[item])) {
+        //数组转为 arr=item1&item2&item3
+        const url = data[item].map(_ => `${item}=${_}`).join("&");
+        arr.push(url);
+      } else {
+        if ([null, undefined, ""].includes(data[item])) {
+          //无效数据，跳过
+          return;
+        }
+        arr.push(`${item}=${data[item]}`);
+      }
+    });
+    if (arr.length) {
+      if (/\?$/.test(url)) {
+        url += arr.join("&");
+      } else if (/\?.+/.test(url)) {
+        url += "&" + arr.join("&");
+      } else {
+        url += "?" + arr.join("&");
+      }
+    }
 
     delete options.data; //axios get请求用到的参数字段是params
     return instance<T>({
       ...options,
-      params: {
-        ...data
-      },
+      url,
       method: "get"
     });
   },

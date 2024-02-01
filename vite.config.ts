@@ -8,6 +8,12 @@ import moment from "moment";
 
 // 版本号
 const appVersion = moment().format("YYYY-MM-DD HH:mm:ss");
+/**
+ * 接口请求域名，构建时传入。未指定时，接口域名为当前服务域名；指定以后接口域名为指定域名。
+ *  构建命令如下
+ *   apiOrigin=https://www.test.com  pnpm build
+ */
+const { apiOrigin } = process.env;
 
 // @see: https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -28,14 +34,16 @@ export default defineConfig(({ mode }) => {
       }
     },
     define: {
-      appVersion: JSON.stringify(appVersion)
+      appVersion: JSON.stringify(appVersion),
+      apiOrigin: JSON.stringify(apiOrigin)
     },
     server: {
       logLevel: "info",
       port: 5173,
       proxy: {
         "/api": {
-          target: "", //接口代理地址
+          // target: "", //接口代理地址
+          target: "http://aigc-admin.aigc.paas.test",
           changeOrigin: true
         }
       }

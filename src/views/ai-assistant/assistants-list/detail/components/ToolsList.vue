@@ -24,7 +24,7 @@
         <el-table-column label="工具描述" prop="description" min-width="300px" show-overflow-tooltip></el-table-column>
         <el-table-column label="工具类型" width="100px">
           <template #default="{ row }">
-            {{ mappings["assistant_tool_type"][row.toolType] }}
+            {{ mappings["assistant_tool_type"]?.[row.toolType] }}
           </template>
         </el-table-column>
       </TableWithPager>

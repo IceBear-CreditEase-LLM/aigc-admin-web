@@ -38,12 +38,10 @@ router.beforeEach(async (to, from, next) => {
     return next("/auth/login?next=" + encodeURIComponent(to.fullPath));
   }
 
-  // 6.mapping全量数据获取
-  if (!mapRemoteStore.isInit) {
-    await mapRemoteStore.getAllRemoteMapping();
-  }
+  //3. mapping 本地字典
+  mapRemoteStore.mergeLocalData();
 
-  //9. 正常访问页面
+  //4. 正常访问页面
   next();
 });
 

@@ -50,7 +50,7 @@
       <v-col cols="12">
         <TableWithPager @query="doTableQuery" ref="refTableWithPager" :infos="state.tableInfos">
           <el-table-column label="指标" width="200px">
-            <template #default="{ row }">{{ mappings["model_eval_metric"][row.metricName] }} </template>
+            <template #default="{ row }">{{ mappings["model_eval_metric"]?.[row.metricName] }} </template>
           </el-table-column>
           <el-table-column label="数据量" width="200px">
             <template #default="{ row }">{{ row.evalTotal }}</template>

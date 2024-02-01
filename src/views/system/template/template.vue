@@ -41,7 +41,7 @@
           <el-table-column label="最长上下文" prop="maxTokens" width="110px"></el-table-column>
           <el-table-column label="模版类型" width="100px">
             <template #default="{ row }">
-              {{ mappings["template_type"][row.templateType] }}
+              {{ mappings["template_type"]?.[row.templateType] }}
             </template>
           </el-table-column>
           <el-table-column label="镜像" width="200px" show-overflow-tooltip>

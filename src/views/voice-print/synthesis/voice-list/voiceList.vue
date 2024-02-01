@@ -49,17 +49,17 @@
           <el-table-column label="姓名" prop="speakCname" width="100px"></el-table-column>
           <el-table-column label="供应" width="100px">
             <template #default="{ row }">
-              <span>{{ mappings["speak_provider"][row.provider] }}</span>
+              <span>{{ mappings["speak_provider"]?.[row.provider] }}</span>
             </template>
           </el-table-column>
           <el-table-column label="语言" width="160px">
             <template #default="{ row }">
-              <span>{{ mappings["speak_lang"][row.lang] }}</span>
+              <span>{{ mappings["speak_lang"]?.[row.lang] }}</span>
             </template>
           </el-table-column>
           <el-table-column label="音色" width="120px">
             <template #default="{ row }">
-              <span>{{ `${mappings["speak_age_group"][row.ageGroup]}${mappings["speak_gender"][row.gender]}声` }}</span>
+              <span>{{ `${mappings["speak_age_group"]?.[row.ageGroup]}${mappings["speak_gender"]?.[row.gender]}声` }}</span>
             </template>
           </el-table-column>
           <el-table-column label="用时" prop="duration" width="120px"></el-table-column>

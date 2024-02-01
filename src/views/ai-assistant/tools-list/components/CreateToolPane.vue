@@ -109,7 +109,7 @@
           </Select>
           <v-input hide-details="auto" :rules="rules.code" v-model="codeMetadata.code" :center-affix="false">
             <CodeMirror v-model="codeMetadata.code" :language="codeMetadata.language" placeholder="请输入" />
-            <template #prepend> <label class="required">编程语言</label></template>
+            <template #prepend> <label class="required">代码</label></template>
           </v-input>
         </template>
         <v-textarea v-model.trim="formData.remark" placeholder="请输入备注">
@@ -172,7 +172,7 @@ const rules = reactive({
   url: [v => !!v || "请输入url"],
   method: [v => !!v || "请选择请求方式"],
   language: [v => !!v || "请选择编程语言"],
-  code: [v => !!v || "请输入编程语言"],
+  code: [v => !!v || "请输入代码"],
   content: [v => !!v || "请输入脚本模版"]
 });
 

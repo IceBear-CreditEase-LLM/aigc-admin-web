@@ -119,11 +119,10 @@ const initOptions = async () => {
     state.cellOptions = _.cloneDeep(props.options);
   } else if (props.mapAPI?.url) {
     state.cellOptions = await dataDictionary.getOptionsByAPI(props.mapAPI);
-  } else if (props.mapLocal) {
-    state.cellOptions = dataDictionary.mapToOptions(props.mapLocal);
   } else if (props.mapDictionary?.code) {
     const mapRemoteStore = useMapRemoteStore();
-    state.cellOptions = mapRemoteStore.options[props.mapDictionary.code].map(item => {
+    let options = await mapRemoteStore.getOptionsByCode(props.mapDictionary.code);
+    state.cellOptions = options.map(item => {
       return {
         value: item.value,
         label: getOptionItemLabel({
