@@ -56,7 +56,7 @@ import { http } from "@/utils";
 import $ from "jquery";
 import AiAudio from "@/components/business/AiAudio.vue";
 
-const mapRemoteStore = useMapRemoteStore();
+const { loadDictTree, getLabels } = useMapRemoteStore();
 const refContainer = ref();
 
 const state = reactive({
@@ -85,19 +85,24 @@ const emits = defineEmits(["update:modelValue", "update:infos"]);
 const data = useVModel(props, "modelValue", emits);
 
 const getSubTitle = item => {
-  let ret = mapRemoteStore.getLabels([
-    ["speak_age_group", item.ageGroup],
-    ["speak_gender", item.gender]
-  ]);
-  if (ret.length) {
-    ret.push("声");
-  }
-
-  return ret.join("");
+  return getLabels(
+    [
+      ["speak_age_group", item.ageGroup],
+      ["speak_gender", item.gender]
+    ],
+    ret => {
+      if (ret.length) {
+        return ret.join("") + "声";
+      } else {
+        return "未知";
+      }
+    }
+  );
 };
 
 // 获取数字人列表
 const getList = async () => {
+  await loadDictTree(["speak_age_group", "speak_gender"]);
   const [err, res] = await http.get({
     showLoading: refContainer.value,
     url: "/api/voice/speak",

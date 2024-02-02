@@ -49,17 +49,35 @@
           <el-table-column label="姓名" prop="speakCname" width="100px"></el-table-column>
           <el-table-column label="供应" width="100px">
             <template #default="{ row }">
-              <span>{{ mappings["speak_provider"]?.[row.provider] }}</span>
+              <span>{{ getLabels([["speak_provider", row.provider]]) }} </span>
             </template>
           </el-table-column>
           <el-table-column label="语言" width="160px">
             <template #default="{ row }">
-              <span>{{ mappings["speak_lang"]?.[row.lang] }}</span>
+              <span>
+                {{ getLabels([["speak_lang", row.lang]]) }}
+              </span>
             </template>
           </el-table-column>
           <el-table-column label="音色" width="120px">
             <template #default="{ row }">
-              <span>{{ `${mappings["speak_age_group"]?.[row.ageGroup]}${mappings["speak_gender"]?.[row.gender]}声` }}</span>
+              <div>
+                {{
+                  getLabels(
+                    [
+                      ["speak_age_group", row.ageGroup],
+                      ["speak_gender", row.gender]
+                    ],
+                    ret => {
+                      if (ret.length) {
+                        return ret.join("") + "声";
+                      } else {
+                        return "未知";
+                      }
+                    }
+                  )
+                }}
+              </div>
             </template>
           </el-table-column>
           <el-table-column label="试听" min-width="330px">
@@ -115,9 +133,10 @@ import CreateSpeakerPane from "./components/CreateSpeakerPane.vue";
 import { http, format } from "@/utils";
 import { useMapRemoteStore } from "@/stores";
 
-const mapRemoteStore = useMapRemoteStore();
+const { loadDictTree, getLabels } = useMapRemoteStore();
 
-const mappings = mapRemoteStore.mappings;
+loadDictTree(["speak_age_group", "speak_gender", "speak_provider", "speak_lang"]);
+
 const page = ref({ title: "发声人管理" });
 const breadcrumbs = ref([
   {

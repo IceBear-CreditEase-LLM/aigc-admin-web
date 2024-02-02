@@ -24,7 +24,8 @@
               <v-avatar size="40" class="mr-2">
                 <img :src="showData.digitalHumanPerson.cover" class="w-100" />
               </v-avatar>
-              {{ `${showData.digitalHumanPerson.cname}(${mappings["speak_gender"]?.[showData.digitalHumanPerson.gender]})` }}
+              {{ showData.digitalHumanPerson.cname }}
+              ({{ getLabels([["speak_gender", showData.digitalHumanPerson.gender]]) }})
             </div>
           </v-input>
           <v-input hide-details>
@@ -33,11 +34,21 @@
               <v-avatar size="40" class="mr-2">
                 <img :src="showData.voiceSpeak.headImg" class="w-100" />
               </v-avatar>
-              {{
-                `${showData.voiceSpeak.speakCname}(${mappings["speak_age_group"]?.[showData.voiceSpeak.ageGroup]}${
-                  mappings["speak_gender"]?.[showData.voiceSpeak.gender]
-                }声)`
-              }}
+              {{ showData.voiceSpeak.speakCname }}({{
+                getLabels(
+                  [
+                    ["speak_age_group", showData.voiceSpeak.ageGroup],
+                    ["speak_gender", showData.voiceSpeak.gender]
+                  ],
+                  ret => {
+                    if (ret.length) {
+                      return ret.join("") + "声";
+                    } else {
+                      return "未知";
+                    }
+                  }
+                )
+              }})
             </div>
           </v-input>
           <v-input hide-details>
@@ -77,10 +88,11 @@ import UiParentCard from "@/components/shared/UiParentCard.vue";
 import { useMapRemoteStore } from "@/stores";
 import { useRoute } from "vue-router";
 
-const mapRemoteStore = useMapRemoteStore();
 const route = useRoute();
 
-const mappings = mapRemoteStore.mappings;
+const { loadDictTree, getLabels } = useMapRemoteStore();
+
+loadDictTree(["speak_gender", "speak_age_group"]);
 
 const { uuid } = route.query;
 const showData = ref<Record<string, any>>({

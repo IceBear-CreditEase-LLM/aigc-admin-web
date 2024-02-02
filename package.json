@@ -42,11 +42,8 @@
     "pinia": "2.0.11",
     "pinia-plugin-persistedstate": "^3.2.0",
     "remixicon": "2.5.0",
-    "require": "^2.4.20",
     "rollup-plugin-visualizer": "^5.9.2",
     "sortablejs": "^1.15.0",
-    "svgmap": "^2.10.1",
-    "v-calendar": "3.0.0-alpha.8",
     "vee-validate": "4.9.0",
     "video.js": "^8.6.1",
     "vite-plugin-compression": "^0.5.1",
@@ -68,8 +65,7 @@
     "vue3-toastify": "^0.1.14",
     "vuedraggable": "^2.24.3",
     "vuetify": "3.4.2",
-    "wavesurfer.js": "^7.4.6",
-    "yup": "^0.32.11"
+    "wavesurfer.js": "^7.4.6"
   },
   "devDependencies": {
     "@mdi/font": "^6.5.95",

@@ -11,7 +11,6 @@ import Vue3Toasity, { toast } from "vue3-toastify";
 // element plus
 import ElementPlus from "element-plus";
 
-import VCalendar from "v-calendar";
 // Table
 import Vue3EasyDataTable from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
@@ -29,7 +28,6 @@ app.use(PerfectScrollbar);
 // 挂载pina状态管理
 setupStore(app);
 
-app.use(VCalendar, {});
 app.use(VueApexCharts);
 app.use(ElementPlus);
 app.use(Vue3Toasity, {

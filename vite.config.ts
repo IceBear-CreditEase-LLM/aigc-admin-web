@@ -42,8 +42,7 @@ export default defineConfig(({ mode }) => {
       port: 5173,
       proxy: {
         "/api": {
-          // target: "", //接口代理地址
-          target: "http://aigc-admin.aigc.paas.test",
+          target: "", //接口代理地址
           changeOrigin: true
         }
       }

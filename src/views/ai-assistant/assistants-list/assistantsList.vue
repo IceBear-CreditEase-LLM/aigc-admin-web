@@ -74,13 +74,10 @@ import ConfirmByInput from "@/components/business/ConfirmByInput.vue";
 import CreateAssistantPane from "./components/CreateAssistantPane.vue";
 
 import { http, format } from "@/utils";
-import { useMapRemoteStore } from "@/stores";
 import { useRouter } from "vue-router";
 
-const mapRemoteStore = useMapRemoteStore();
 const router = useRouter();
 
-const mappings = mapRemoteStore.mappings;
 const page = ref({ title: "助手列表" });
 const breadcrumbs = ref([
   {

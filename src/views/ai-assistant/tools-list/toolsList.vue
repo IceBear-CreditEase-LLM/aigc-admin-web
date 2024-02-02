@@ -36,7 +36,7 @@
           <el-table-column label="工具描述" prop="description" min-width="300px" show-overflow-tooltip></el-table-column>
           <el-table-column label="工具类型" width="100px">
             <template #default="{ row }">
-              {{ mappings["assistant_tool_type"]?.[row.toolType] }}
+              {{ getLabels([["assistant_tool_type", row.toolType]]) }}
             </template>
           </el-table-column>
           <el-table-column label="被助手使用" prop="assistant" min-width="110px">
@@ -84,11 +84,8 @@ import CreateToolPane from "./components/CreateToolPane.vue";
 import { http, format } from "@/utils";
 import { useMapRemoteStore } from "@/stores";
 
-const mapRemoteStore = useMapRemoteStore();
-
-const { mappings, loadDictTree } = mapRemoteStore;
-
-loadDictTree("assistant_tool_type");
+const { getLabels, loadDictTree } = useMapRemoteStore();
+loadDictTree(["assistant_tool_type"]);
 
 const page = ref({ title: "工具列表" });
 const breadcrumbs = ref([

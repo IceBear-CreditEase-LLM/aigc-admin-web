@@ -51,7 +51,7 @@ import _ from "lodash";
 import $ from "jquery";
 import AiAudio from "@/components/business/AiAudio.vue";
 
-const mapRemoteStore = useMapRemoteStore();
+const { mappings, loadDictTree } = useMapRemoteStore();
 const route = useRoute();
 const refFormLeft = ref();
 const refFormRight = ref();
@@ -113,25 +113,6 @@ const breadcrumbs = ref([
   }
 ]);
 
-const getSubTitle = item => {
-  let { mappings } = mapRemoteStore;
-  let ret = [];
-  let ageCN = mappings.ageGroup[item.ageGroup];
-  if (ageCN) {
-    ret.push(ageCN);
-  }
-
-  let genderCN = mappings.gender[item.gender];
-  if (genderCN) {
-    ret.push(genderCN);
-  }
-
-  if (ret.length) {
-    ret.push("声");
-  }
-  return ret.join("");
-};
-
 const onSelectSpeaker = item => {
   state.selectedSpeaker = item;
 };
@@ -172,9 +153,10 @@ const onSubmit = async () => {
     toast.warning(errorMsg);
   }
 };
-onMounted(() => {
+onMounted(async () => {
+  await loadDictTree(["speak_provider", "speak_lang"]);
   let { provider, lang, speakName } = route.query;
-  let { mappings } = mapRemoteStore;
+
   if (provider && mappings.speak_provider?.[provider]) {
     state.formData.provider = provider;
   }

@@ -42,7 +42,7 @@
           <el-table-column label="字典排序" prop="sort" width="100px"></el-table-column>
           <el-table-column label="字典类型" width="100px">
             <template #default="{ row }">
-              <span>{{ mappings["sys_dict_type"] ? mappings["sys_dict_type"][row.dictType] : "--" }}</span>
+              <span>{{ getLabels([["sys_dict_type", row.dictType]]) }}</span>
             </template>
           </el-table-column>
           <el-table-column label="备注" prop="remark" min-width="200px"></el-table-column>
@@ -83,9 +83,9 @@ import ConfigDictPane from "./components/ConfigDictPane.vue";
 import { http, format } from "@/utils";
 import { useMapRemoteStore } from "@/stores";
 
-const mapRemoteStore = useMapRemoteStore();
+const { getLabels, loadDictTree } = useMapRemoteStore();
+loadDictTree(["sys_dict_type"]);
 
-const mappings = mapRemoteStore.mappings;
 const page = ref({ title: "系统字典" });
 const breadcrumbs = ref([
   {

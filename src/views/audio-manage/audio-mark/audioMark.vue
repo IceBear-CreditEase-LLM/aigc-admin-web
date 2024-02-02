@@ -131,7 +131,7 @@ const state = reactive({
   style: {},
   formData: {
     taggedStatus: false,
-    originalLanguage: ""
+    originalLanguage: null
   },
   selectedInfo: {},
   tableInfos: {

@@ -64,9 +64,9 @@
                   <div class="d-flex align-center justify-space-between mt-2" style="height: 32px">
                     <div class="flex-1-1 d-flex justify-space-between text-medium-emphasis">
                       <span>{{ format.dateFromNow(item.createdAt) }}</span>
-                      <span>{{
-                        `${item.digitalHumanPerson.cname}(${mappings["speak_gender"]?.[item.digitalHumanPerson.gender]})`
-                      }}</span>
+                      <span>
+                        {{ item.digitalHumanPerson.cname }} ({{ getLabels([["speak_gender", item.digitalHumanPerson.gender]]) }})
+                      </span>
                     </div>
                     <v-btn class="ml-6" size="x-small" color="inherit" icon variant="text">
                       <IconDotsVertical width="14" stroke-width="1.5" />
@@ -151,9 +151,9 @@ defineOptions({
 });
 
 const router = useRouter();
-const mapRemoteStore = useMapRemoteStore();
 
-const mappings = mapRemoteStore.mappings;
+const { getLabels, loadDictTree } = useMapRemoteStore();
+
 const page = ref({ title: "视频列表" });
 const breadcrumbs = ref([]);
 const searchData = reactive({
@@ -175,6 +175,7 @@ const listContentRef = ref();
 const refreshButtonRef = ref();
 const loading = ref(false);
 
+loadDictTree(["speak_gender"]);
 const doQuery = async (options = {}) => {
   loading.value = true;
   const [err, res] = await http.get({

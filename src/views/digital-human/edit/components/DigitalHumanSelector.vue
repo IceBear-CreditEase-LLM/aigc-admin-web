@@ -73,7 +73,7 @@ onMounted(() => {
             <img :src="item.cover" :alt="item.cname" />
           </div>
           <div class="hv-center mt-2">
-            {{ item.cname }}
+            <div class="line1">{{ item.cname }}</div>
           </div>
           <IconChecked v-if="item.name === selectedDigitalHuman?.name" />
         </div>

@@ -50,13 +50,13 @@
       <v-col cols="12">
         <TableWithPager @query="doTableQuery" ref="refTableWithPager" :infos="state.tableInfos">
           <el-table-column label="指标" width="200px">
-            <template #default="{ row }">{{ mappings["model_eval_metric"]?.[row.metricName] }} </template>
+            <template #default="{ row }">{{ getLabels([["model_eval_metric", row.metricName]]) }} </template>
           </el-table-column>
           <el-table-column label="数据量" width="200px">
             <template #default="{ row }">{{ row.evalTotal }}</template>
           </el-table-column>
           <el-table-column label="评估数据集" width="200px">
-            <template #default="{ row }"> {{ row.datasetType }}</template>
+            <template #default="{ row }"> {{ getLabels([["model_eval_dataset_type", row.datasetType]]) }}</template>
           </el-table-column>
           <el-table-column label="平均分" width="200px">
             <template #default="{ row }">{{ row.score }}</template>
@@ -123,13 +123,12 @@ const props = defineProps({
   modelTitle: String
 });
 const route = useRoute();
-const mapRemoteStore = useMapRemoteStore();
+const { loadDictTree, getLabels } = useMapRemoteStore();
 const refTableWithPager = ref();
 const refPaneModelEstimate = ref();
 const buttonRef = ref();
 const refConfirmAbort = ref();
 const refConfirmDelete = ref();
-const mappings = mapRemoteStore.mappings;
 const state = reactive({
   style: {},
   formData: {
@@ -205,12 +204,9 @@ const doAbort = async (options = {}) => {
     refTableWithPager.value.query();
   }
 };
-const getSubStatus = item => {
-  let ret = mapRemoteStore.getLabels([["model_eval_dataset_type", item.datasetType]]);
-  return ret;
-};
 
 const doTableQuery = async (options = {}) => {
+  await loadDictTree(["model_eval_dataset_type", "model_eval_metric"]);
   let { modelName } = route.query;
   const [err, res] = await http.get({
     url: `/api/models/eval`,
@@ -224,12 +220,7 @@ const doTableQuery = async (options = {}) => {
 
   if (res) {
     state.tableInfos.total = res.total;
-    state.tableInfos.list = res.list.map(item => {
-      return {
-        ...item,
-        datasetType: getSubStatus(item)
-      };
-    });
+    state.tableInfos.list = res.list;
   } else {
     state.tableInfos.list = [];
     state.tableInfos.total = 0;

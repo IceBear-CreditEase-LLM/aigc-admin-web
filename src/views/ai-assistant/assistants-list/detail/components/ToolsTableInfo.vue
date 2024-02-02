@@ -22,7 +22,7 @@
         <el-table-column label="工具描述" prop="description" min-width="300px" show-overflow-tooltip></el-table-column>
         <el-table-column label="工具类型" width="100px">
           <template #default="{ row }">
-            {{ mappings["assistant_tool_type"]?.[row.toolType] }}
+            {{ getLabels([["assistant_tool_type", row.toolType]]) }}
           </template>
         </el-table-column>
         <el-table-column label="备注" prop="remark" min-width="200px"></el-table-column>
@@ -54,11 +54,12 @@ import { http } from "@/utils";
 import { useMapRemoteStore } from "@/stores";
 import { useRoute } from "vue-router";
 
-const mapRemoteStore = useMapRemoteStore();
+const { getLabels, loadDictTree } = useMapRemoteStore();
+loadDictTree(["assistant_tool_type"]);
+
 const route = useRoute();
 const { assistantId } = route.query;
 
-const mappings = mapRemoteStore.mappings;
 const searchData = reactive({
   name: ""
 });

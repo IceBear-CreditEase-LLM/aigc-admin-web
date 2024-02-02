@@ -40,8 +40,21 @@
                 </v-img>
                 <v-card-item class="pa-5">
                   <h5 class="text-h5 text-truncate" @click="openDetail(item)">
-                    {{ item.cname }} （{{ mappings["speak_gender"]?.[item.gender] }}-{{
-                      mappings["digitalhuman_posture"]?.[item.posture]
+                    {{ item.cname }} （
+                    {{
+                      getLabels(
+                        [
+                          ["speak_gender", item.gender],
+                          ["digitalhuman_posture", item.posture]
+                        ],
+                        ret => {
+                          if (ret.length) {
+                            return ret.join("-");
+                          } else {
+                            return "未知";
+                          }
+                        }
+                      )
                     }}）
                   </h5>
                   <p class="text-subtitle-1 mt-1 text-medium-emphasis text-truncate" style="height: 15px">{{ item.remark }}</p>
@@ -128,7 +141,7 @@ import PaneModelEstimate from "./components/PaneModelEstimate.vue";
 
 const mapRemoteStore = useMapRemoteStore();
 
-const mappings = mapRemoteStore.mappings;
+const { loadDictTree, getLabels } = mapRemoteStore;
 const page = ref({ title: "形象列表" });
 const breadcrumbs = ref([]);
 const searchData = reactive({
@@ -149,6 +162,7 @@ const currentOperateData = reactive({
 const listContentRef = ref();
 
 const doQuery = async (options = {}) => {
+  await loadDictTree(["speak_gender", "digitalhuman_posture"]);
   const [err, res] = await http.get({
     url: "/api/digitalhuman/person/list",
     showLoading: listContentRef.value.$el,

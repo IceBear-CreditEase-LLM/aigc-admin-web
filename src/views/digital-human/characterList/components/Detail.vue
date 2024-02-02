@@ -59,11 +59,8 @@
 import { ref } from "vue";
 import { http, format } from "@/utils";
 import UiParentCard from "@/components/shared/UiParentCard.vue";
-import { useMapRemoteStore } from "@/stores";
 import { useRouter } from "vue-router";
-const mapRemoteStore = useMapRemoteStore();
 
-const mappings = mapRemoteStore.mappings;
 const router = useRouter();
 const refPane = ref();
 const currentUuid = ref("");

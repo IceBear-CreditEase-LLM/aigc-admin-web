@@ -49,17 +49,34 @@
           <el-table-column label="姓名" prop="speakCname" width="100px"></el-table-column>
           <el-table-column label="供应" width="100px">
             <template #default="{ row }">
-              <span>{{ mappings["speak_provider"]?.[row.provider] }}</span>
+              <span>{{ getLabels([["speak_provider", row.provider]]) }}</span>
             </template>
           </el-table-column>
           <el-table-column label="语言" width="160px">
             <template #default="{ row }">
-              <span>{{ mappings["speak_lang"]?.[row.lang] }}</span>
+              {{ row.lang }}
+              <span>{{ getLabels([["speak_lang", row.lang]]) }}</span>
             </template>
           </el-table-column>
           <el-table-column label="音色" width="120px">
             <template #default="{ row }">
-              <span>{{ `${mappings["speak_age_group"]?.[row.ageGroup]}${mappings["speak_gender"]?.[row.gender]}声` }}</span>
+              <span>
+                {{
+                  getLabels(
+                    [
+                      ["speak_age_group", row.ageGroup],
+                      ["speak_gender", row.gender]
+                    ],
+                    ret => {
+                      if (ret.length) {
+                        return ret.join("") + "声";
+                      } else {
+                        return "未知";
+                      }
+                    }
+                  )
+                }}
+              </span>
             </template>
           </el-table-column>
           <el-table-column label="用时" prop="duration" width="120px"></el-table-column>
@@ -108,10 +125,10 @@ import { http, format } from "@/utils";
 import { useMapRemoteStore } from "@/stores";
 import { useRouter } from "vue-router";
 
-const mapRemoteStore = useMapRemoteStore();
+const { loadDictTree, getLabels } = useMapRemoteStore();
 const router = useRouter();
+loadDictTree(["speak_age_group", "speak_gender", "speak_provider", "speak_lang"]);
 
-const mappings = mapRemoteStore.mappings;
 const page = ref({ title: "声音列表" });
 const breadcrumbs = ref([
   {

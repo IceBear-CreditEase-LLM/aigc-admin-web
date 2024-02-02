@@ -40,9 +40,7 @@
           <el-table-column label="基础模型" prop="baseModel" width="180px"></el-table-column>
           <el-table-column label="最长上下文" prop="maxTokens" width="110px"></el-table-column>
           <el-table-column label="模版类型" width="100px">
-            <template #default="{ row }">
-              {{ mappings["template_type"]?.[row.templateType] }}
-            </template>
+            <template #default="{ row }"> {{ getLabels([["template_type", row.templateType]]) }} </template>
           </el-table-column>
           <el-table-column label="镜像" width="200px" show-overflow-tooltip>
             <template #default="{ row }">
@@ -90,9 +88,8 @@ import ChipStatus from "@/components/ui/ChipStatus.vue";
 import { http, format } from "@/utils";
 import { useMapRemoteStore } from "@/stores";
 
-const mapRemoteStore = useMapRemoteStore();
+const { getLabels } = useMapRemoteStore();
 
-const mappings = mapRemoteStore.mappings;
 const page = ref({ title: "模版管理" });
 const breadcrumbs = ref([
   {
