@@ -28,7 +28,7 @@
       <v-col cols="12" lg="3" md="4" sm="6">
         <ButtonsInForm>
           <v-btn color="primary" @click="onAdd">创建视频</v-btn>
-          <refresh-button ref="refreshButtonRef" @refresh="doQuery" :disabled="loading" />
+          <refresh-button ref="refreshButtonRef" @refresh="doQueryCurrentPage" :disabled="loading" />
         </ButtonsInForm>
       </v-col>
       <v-col cols="12">
@@ -44,7 +44,7 @@
                 href="javascript: void(0)"
                 @click="openDetail(item)"
               >
-                <div class="status-corner-mark" :class="digitalhumanStatusMap[item.status].bgColor">
+                <div class="status-corner-mark" :class="`bg-${digitalhumanStatusMap[item.status].color}`">
                   {{ digitalhumanStatusMap[item.status].text }}
                 </div>
                 <v-img :src="item.digitalHumanPerson.cover" height="180px" cover class="rounded-t-md align-end text-right">
@@ -61,6 +61,7 @@
                 <v-card-item class="pa-5">
                   <h5 class="text-h5">{{ item.title }}</h5>
                   <p class="text-subtitle-1 mt-1 text-medium-emphasis text-truncate">{{ item.ttsText }}</p>
+                  <p v-copy="item.uuid" class="text-subtitle-2 mt-1 text-medium-emphasis text-truncate">{{ item.uuid }}</p>
                   <div class="d-flex align-center justify-space-between mt-2" style="height: 32px">
                     <div class="flex-1-1 d-flex justify-space-between text-medium-emphasis">
                       <span>{{ format.dateFromNow(item.createdAt) }}</span>
@@ -207,7 +208,7 @@ const doQueryCurrentPage = () => {
 
 const getOperateConfig = status => {
   let ret = [];
-  if (status === "failed" || status === "success" || status === "running") {
+  if (status !== "waiting") {
     ret.push({
       text: "日志",
       color: "info",
@@ -289,7 +290,7 @@ const onAdd = () => {
 };
 
 const openDetail = ({ status, uuid }) => {
-  if (status !== "success") return;
+  // if (status !== "success") return;
   router.push(`/digital-human/video-list/detail?uuid=${uuid}`);
 };
 

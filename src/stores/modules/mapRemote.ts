@@ -8,7 +8,7 @@ type TypeOption = {
   value: string | number | boolean;
 };
 
-type TypeGetLabels = [any, string];
+type TypeGetLabels = [any, any];
 
 type TypeState = {
   /**
@@ -83,7 +83,8 @@ export const useMapRemoteStore = defineStore({
       inValue.forEach(async item => {
         let fieldName = item[0];
         let fieldValue = item[1];
-        if (!fieldValue) {
+        if (["", null, undefined].includes(fieldValue)) {
+          //无效值
           return;
         }
         let cn = mappings[fieldName]?.[fieldValue];

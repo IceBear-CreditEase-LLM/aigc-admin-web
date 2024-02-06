@@ -80,6 +80,34 @@
             ><label class="required">脚本文件 <Explain>训练脚本文件</Explain></label></template
           >
         </v-text-field>
+        <Select placeholder="请选择GPU标签" :mapDictionary="{ code: 'gpu_label' }" v-model="formData.gpuLabel">
+          <template #prepend>
+            <label>GPU标签</label>
+          </template>
+        </Select>
+        <v-text-field
+          type="number"
+          placeholder="请输入任务并行数量"
+          :rules="rules.parallelNum"
+          hide-details="auto"
+          v-model.number="formData.parallelNum"
+        >
+          <template #prepend> <label>任务并行数量</label></template>
+        </v-text-field>
+        <v-text-field type="number" placeholder="请输入CPU" :rules="rules.cpu" v-model.number="formData.cpu" hide-details="auto">
+          <template #prepend> <label>CPU</label></template>
+          <template #append-inner> 核 </template>
+        </v-text-field>
+        <v-text-field
+          type="number"
+          placeholder="请输入内存"
+          :rules="rules.memory"
+          v-model.number="formData.memory"
+          hide-details="auto"
+        >
+          <template #prepend> <label>内存</label></template>
+          <template #append-inner> G </template>
+        </v-text-field>
         <v-input hide-details="auto" :rules="rules.content" v-model="formData.content" :center-affix="false">
           <CodeMirror v-model="formData.content" language="shell" placeholder="请输入脚本模版" />
           <template #prepend>
@@ -111,6 +139,10 @@ interface IFormData {
   outputDir: string;
   baseModelPath: string;
   enabled: boolean;
+  gpuLabel: string | null;
+  parallelNum: number;
+  cpu: number;
+  memory: number;
   remark: string;
 }
 const initFormData = {
@@ -123,6 +155,10 @@ const initFormData = {
   outputDir: "/data/ft-model/",
   baseModelPath: "",
   enabled: false,
+  gpuLabel: null,
+  parallelNum: 1,
+  cpu: 1,
+  memory: 1,
   remark: ""
 };
 
@@ -141,12 +177,31 @@ const rules = reactive({
   scriptFile: [v => !!v || "请输入脚本文件"],
   trainImage: [v => !!v || "请输入镜像完整地址"],
   baseModelPath: [v => !!v || "请输入基础模型路径"],
-  content: [v => !!v || "请输入脚本模版"]
+  content: [v => !!v || "请输入脚本模版"],
+  parallelNum: [v => validNumberInput(v, 1, 100, "", true)],
+  cpu: [v => validNumberInput(v, 1, 100, "", true)],
+  memory: [v => validNumberInput(v, 1, 100, "", true)]
 });
 
 const isEdit = computed(() => {
   return paneConfig.operateType === "edit";
 });
+
+const validNumberInput = (value, min, max, errorMessage, reg = false) => {
+  if (value !== "" && !errorMessage) {
+    if (value < min) {
+      return `下限 ${min}`;
+    } else if (value > max) {
+      return `上限 ${max}`;
+    } else if (reg && /^\+?[1-9][0-9]*$/.test(value) != true) {
+      return "请输入正整数";
+    } else {
+      return true;
+    }
+  } else {
+    return errorMessage;
+  }
+};
 
 const onSubmit = async ({ valid, showLoading }) => {
   if (valid) {

@@ -19,6 +19,16 @@
           <h3 class="text-h3 my-2">{{ showData.title }}</h3>
           <p>{{ showData.ttsText }}</p>
           <v-input hide-details>
+            <template #prepend> <label>ID</label></template>
+            <span v-copy="showData.uuid">{{ showData.uuid }}</span>
+          </v-input>
+          <v-input hide-details>
+            <template #prepend> <label>状态</label></template>
+            <v-chip :color="digitalhumanStatusMap[showData.status]?.color" variant="outlined" size="small">{{
+              digitalhumanStatusMap[showData.status]?.text
+            }}</v-chip>
+          </v-input>
+          <v-input hide-details>
             <template #prepend> <label>形象</label></template>
             <div class="d-flex align-center">
               <v-avatar size="40" class="mr-2">
@@ -87,6 +97,7 @@ import NavBack from "@/components/business/NavBack.vue";
 import UiParentCard from "@/components/shared/UiParentCard.vue";
 import { useMapRemoteStore } from "@/stores";
 import { useRoute } from "vue-router";
+import { digitalhumanStatusMap } from "../map";
 
 const route = useRoute();
 

@@ -63,7 +63,7 @@ export const useUserStore = defineStore({
         username: "",
         tenants: []
       };
-      location.replace("/auth/login");
+      location.replace("#auth/login");
       // router.push("/auth/login");
     }
   },

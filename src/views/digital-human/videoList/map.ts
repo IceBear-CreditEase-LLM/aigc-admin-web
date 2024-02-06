@@ -3,23 +3,23 @@ import { IconClock, IconCircleCheckFilled, IconLoader, IconAlarm } from "@tabler
 export const digitalhumanStatusMap = {
   running: {
     text: "合成中",
-    bgColor: "bg-info"
+    color: "info"
   },
   success: {
     text: "已完成",
-    bgColor: "bg-success"
+    color: "success"
   },
   failed: {
     text: "失败",
-    bgColor: "bg-error"
+    color: "error"
   },
   waiting: {
     text: "等待中",
-    bgColor: "bg-warning"
+    color: "warning"
   },
   cancel: {
     text: "已取消",
-    bgColor: "bg-error"
+    color: "error"
   }
 };
 
